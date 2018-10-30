@@ -43,7 +43,7 @@ public:
     ofTexture*  getIrTex()      { return &_irTex; }
     ofTexture*  getDepthTex()   { return &_depthTex; }
 	ofTexture*  getMappedDepthTex() { return &mappedDepthTex; }
-	ofVboMesh*	getPointCloudRef() { return &mesh; }
+	std::shared_ptr<ofVboMesh>	getPointCloudRef() { return mesh; }
 
     int getColorWidth() { return _colorWidth; }
     int getColorHeight(){ return _colorHeight; }
@@ -61,10 +61,10 @@ public:
 
 	ofPixels mappedDepthPix;
 	ofShortPixels rawDepthPix;
-	ofVboMesh mesh;
+	std::shared_ptr<ofVboMesh> mesh;
 
-	ofEvent<ofPixels> newMappedPixelsEvt;
-	ofEvent<void> newDepthEvent;
+
+	ofEvent<void> & getNewDepthEvent() { return newDepthEvent; }
 
 	void useDepthShader(bool use) { _bUseDepthShader = use; };
 	void setSensorPreset( Preset p );
@@ -77,6 +77,8 @@ public:
 
 private:
 
+	ofEvent<ofPixels> newMappedPixelsEvt;
+	ofEvent<void> newDepthEvent;
 
 	ofxAutoReloadedShader mapShader;
 	ofFbo mapFbo;
