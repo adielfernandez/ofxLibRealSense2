@@ -100,9 +100,7 @@ void ofxLibRealSense2::setupDepth(int width, int height, int fps)
 
 void ofxLibRealSense2::setupPointcloud() {
 
-	mesh = make_shared<ofVboMesh>();
-	mesh->setMode(OF_PRIMITIVE_POINTS);
-
+	mesh.setMode(OF_PRIMITIVE_POINTS);
 	
 	_pointcloudEnabled = true;
 
@@ -261,7 +259,7 @@ void ofxLibRealSense2::updateFrameData()
 			auto vertices = points.get_vertices();
 			auto tex_coords = points.get_texture_coordinates();
 
-			mesh->clear();
+			mesh.clear();
 
 			for (int i = 0; i < points.size(); i++) {
 				if (vertices[i].z) {
@@ -269,8 +267,8 @@ void ofxLibRealSense2::updateFrameData()
 					ofVec3f p(vertices[i].x, vertices[i].y, vertices[i].z);
 					ofVec2f t(tex_coords[i].u, tex_coords[i].v);
 
-					mesh->addVertex( p );
-					mesh->addTexCoord( t );
+					mesh.addVertex( p );
+					mesh.addTexCoord( t );
 
 				}
 			}
