@@ -265,8 +265,13 @@ void ofxLibRealSense2::updateFrameData()
 
 			for (int i = 0; i < points.size(); i++) {
 				if (vertices[i].z) {
-					mesh->addVertex( ofVec3f(vertices[i].x, vertices[i].y, vertices[i].z) );
-					mesh->addTexCoord( ofVec2f(tex_coords[i].u, tex_coords[i].v) );
+
+					ofVec3f p(vertices[i].x, vertices[i].y, vertices[i].z);
+					ofVec2f t(tex_coords[i].u, tex_coords[i].v);
+
+					mesh->addVertex( p );
+					mesh->addTexCoord( t );
+
 				}
 			}
 
